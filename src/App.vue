@@ -27,7 +27,8 @@
     </v-app-bar>
 
     <v-main>
-      <AuthenticationWall>
+      <AuthenticationWall
+        :options="options">
         <router-view/>
       </AuthenticationWall>
     </v-main>
@@ -44,7 +45,10 @@ export default {
   },
 
   data: () => ({
-    //
+    options: {
+      login_url: 'https://api.authentication.maximemoreillon.com/login',
+      identification_url: 'https://api.authentication.maximemoreillon.com/whoami',
+    }
   }),
 };
 </script>

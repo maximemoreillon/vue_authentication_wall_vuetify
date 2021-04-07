@@ -3,17 +3,7 @@
 
     <transition name="fade">
       <div class="wall" v-if="!logged_in">
-
-        <form @submit.prevent="login()">
-
-
-          <v-btn
-            type="submit"
-            >
-            Login</v-btn>
-
-        </form>
-
+        <LoginForm :options="options"/>
       </div>
     </transition>
 
@@ -26,11 +16,15 @@
 
 <script>
 // @ is an alias to /src
+import LoginForm from '@/components/LoginForm.vue'
 
 export default {
   name: 'Home',
   components: {
-
+    LoginForm,
+  },
+  props: {
+    options: String,
   },
   data(){
     return {
