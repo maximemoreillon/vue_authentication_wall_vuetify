@@ -1,6 +1,6 @@
 {
   "name": "@moreillon/vue_authentication_wall_vuetify",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "main": "dist/AppTemplate.umd.js",
   "module": "dist/AppTemplate.esm.js",
   "unpkg": "dist/AppTemplate.min.js",

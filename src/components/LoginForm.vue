@@ -81,6 +81,11 @@ export default {
       .then( ({data}) => {
         if(!data.jwt) return
         VueCookies.set('jwt', data.jwt)
+        
+        // clear the inputs
+        this.username = ''
+        this.password = ''
+
         this.$emit('loggedIn')
       })
       .catch( (error) => {
@@ -90,9 +95,7 @@ export default {
         console.error(error)
        })
       .finally(() => {
-        // clear the inputs
-        this.username = ''
-        this.password = ''
+
         this.processing = false
 
       })
