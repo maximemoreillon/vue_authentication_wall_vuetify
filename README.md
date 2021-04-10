@@ -1,29 +1,35 @@
-# vue_authentication_wall_vuetify
+# Vue Authentication wall (Vuetify)
 
-## Project setup
-```
-npm install
-```
+This components forces users to login before getting access to the main content of a VueJS app.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## Usage
 
-### Compiles and minifies for production
 ```
-npm run build
-```
+<template>
+  <v-app>
+    <v-main>
+      <AuthenticationWall :options="options">
+        <router-view/>
+      </AuthenticationWall>
+    </v-main>
+  </v-app>
+</template>
 
-### Run your tests
-```
-npm run test
-```
+<script>
+import AuthenticationWall from '@/AuthenticationWall.vue'
+export default {
+  name: 'App',
+  components: {
+    AuthenticationWall
+  },
+  data: () => ({
+    options: {
+      login_url: 'LOGIN URL',
+      identification_url: 'IDENTIFICATION URL',
+    }
+  }),
 
-### Lints and fixes files
-```
-npm run lint
-```
+}
+</script>
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+```

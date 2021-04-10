@@ -50,8 +50,6 @@ export default {
       identification_url: 'https://api.authentication.maximemoreillon.com/whoami',
     }
   }),
-  methods: {
 
-  }
 };
 </script>
