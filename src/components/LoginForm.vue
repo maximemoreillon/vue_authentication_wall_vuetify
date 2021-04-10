@@ -1,26 +1,26 @@
 <template>
-<v-form
-  class="text-center"
-  @submit.prevent="login()">
+  <v-form
+    class="text-center"
+    @submit.prevent="login()">
 
-  <v-text-field
-    label="Username"
-    v-model="username"/>
+    <v-text-field
+      label="Username"
+      v-model="username"/>
 
-  <v-text-field
-    label="Password"
-    type="Password"
-    v-model="password"/>
+    <v-text-field
+      label="Password"
+      type="Password"
+      v-model="password"/>
 
-  <v-btn
-    dark
-    @click="login"
-    :loading="processing">
-    <v-icon>mdi-login</v-icon>
-    <span>Login</span>
-  </v-btn>
+    <v-btn
+      dark
+      @click="login"
+      :loading="processing">
+      <v-icon>mdi-login</v-icon>
+      <span>Login</span>
+    </v-btn>
 
-  <v-snackbar
+    <v-snackbar
       color="#C00000"
       dark
       v-model="snack" >
@@ -36,7 +36,7 @@
       </template>
     </v-snackbar>
 
-</v-form>
+  </v-form>
 </template>
 
 <script>
@@ -77,12 +77,10 @@ export default {
       this.processing = true
 
       axios.post(url, body)
-
       .then( ({data}) => {
         if(!data.jwt) return
-        console.log(data)
         VueCookies.set('jwt', data.jwt)
-        //this.get_user()
+        this.$emit('loggedIn')
       })
       .catch( (error) => {
         if(error.response) this.snack_text = error.response.data
@@ -99,7 +97,17 @@ export default {
       })
 
     },
+    set_authorization_header() {
 
+      if(!this.axios) return
+
+      const jwt = VueCookies.get("jwt")
+
+      // either set or unset the header depending on of jwt being in cookies
+      if(jwt) this.axios.defaults.headers.common['Authorization'] = `Bearer ${jwt}`
+      else delete this.axios.defaults.headers.common['Authorization']
+
+    },
 
 
   },

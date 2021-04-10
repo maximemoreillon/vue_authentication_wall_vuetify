@@ -2,13 +2,15 @@
   <div class="wall_wrapper">
 
     <transition name="fade">
-      <div class="wall" v-if="!logged_in">
-        <LoginForm :options="options"/>
+      <div class="wall" v-if="!user">
+        <LoginForm
+          :options="options"
+          @loggedIn="get_current_user()"/>
       </div>
     </transition>
 
 
-    <slot v-if="logged_in"/>
+    <slot v-if="!!user"/>
 
 
   </div>
@@ -17,6 +19,8 @@
 <script>
 // @ is an alias to /src
 import LoginForm from '@/components/LoginForm.vue'
+import axios from 'axios'
+import VueCookies from 'vue-cookies'
 
 export default {
   name: 'Home',
@@ -24,17 +28,38 @@ export default {
     LoginForm,
   },
   props: {
-    options: String,
+    options: Object,
   },
   data(){
     return {
-      logged_in: false,
+      user: null,
     }
   },
+  mounted(){
+    this.get_current_user()
+  },
   methods:{
-    login(){
-      this.logged_in = true
-    }
+
+    get_current_user(){
+      const jwt = VueCookies.get("jwt")
+
+      if(!jwt) return
+
+      const url = this.options.identification_url
+
+      const headers = { Authorization: `Bearer ${jwt}` }
+
+      axios.get(url, {headers})
+      .then( ({data}) => {
+        this.user = data
+      })
+      .catch( (error) => {
+        console.error(error)
+        VueCookies.remove('jwt')
+        if(this.axios) delete this.axios.defaults.headers.common['Authorization']
+       })
+
+    },
   }
 }
 </script>
