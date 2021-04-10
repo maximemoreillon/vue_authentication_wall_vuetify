@@ -97,17 +97,7 @@ export default {
       })
 
     },
-    set_authorization_header() {
-
-      if(!this.axios) return
-
-      const jwt = VueCookies.get("jwt")
-
-      // either set or unset the header depending on of jwt being in cookies
-      if(jwt) this.axios.defaults.headers.common['Authorization'] = `Bearer ${jwt}`
-      else delete this.axios.defaults.headers.common['Authorization']
-
-    },
+    
 
 
   },

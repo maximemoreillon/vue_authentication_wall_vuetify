@@ -2,11 +2,20 @@
   <div class="wall_wrapper">
 
     <transition name="fade">
-      <div class="wall" v-if="!user">
+
+      <div class="wall" v-if="!loading && !user">
         <LoginForm
           :options="options"
           @loggedIn="get_current_user()"/>
       </div>
+
+      <div class="wall" v-if="loading">
+        <v-progress-circular
+        indeterminate
+        size="50"
+        color="#444444" />
+      </div>
+
     </transition>
 
 
@@ -32,6 +41,7 @@ export default {
   },
   data(){
     return {
+      loading: false,
       user: null,
     }
   },
@@ -41,9 +51,15 @@ export default {
   methods:{
 
     get_current_user(){
+
+      // Does not feel like the right place to do this
+      this.set_authorization_header()
+
       const jwt = VueCookies.get("jwt")
 
       if(!jwt) return
+
+      this.loading = true
 
       const url = this.options.identification_url
 
@@ -58,6 +74,20 @@ export default {
         VueCookies.remove('jwt')
         if(this.axios) delete this.axios.defaults.headers.common['Authorization']
        })
+       .finally( () => {
+         this.loading = false
+       })
+
+    },
+    set_authorization_header() {
+
+      if(!this.axios) return
+
+      const jwt = VueCookies.get("jwt")
+
+      // either set or unset the header depending on of jwt being in cookies
+      if(jwt) this.axios.defaults.headers.common['Authorization'] = `Bearer ${jwt}`
+      else delete this.axios.defaults.headers.common['Authorization']
 
     },
   }
