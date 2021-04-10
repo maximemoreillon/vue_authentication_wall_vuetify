@@ -19,7 +19,7 @@
     </transition>
 
 
-    <slot v-if="!!user"/>
+    <slot v-if="!!user && !loading"/>
 
 
   </div>

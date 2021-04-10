@@ -16,7 +16,7 @@ This components forces users to login before getting access to the main content 
 </template>
 
 <script>
-import AuthenticationWall from '@/AuthenticationWall.vue'
+import AuthenticationWall from '@moreillon/vue_authentication_wall_vuetify'
 export default {
   name: 'App',
   components: {
