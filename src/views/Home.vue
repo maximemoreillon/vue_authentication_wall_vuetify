@@ -1,7 +1,13 @@
 <template>
   <div class="home">
     <h1>Home</h1>
-    <p>{{user}}</p>
+    <p>Welcome {{user.display_name || user.properties.username || 'Unknown user'}}</p>
+
+    <v-btn
+      @click="logout()">
+      Logout
+    </v-btn>
+    
   </div>
 </template>
 
@@ -24,6 +30,13 @@ export default {
     .catch(error => {
       console.error(error)
     })
+  },
+  methods: {
+    logout(){
+      this.$cookies.remove('jwt')
+      location.reload()
+    }
   }
+
 }
 </script>

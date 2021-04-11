@@ -4,26 +4,31 @@
       app
       color="primary"
       dark >
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
 
-      </div>
+      <v-img
+        alt="Vuetify Logo"
+        class="shrink mr-2"
+        contain
+        src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
+        transition="scale-transition"
+        width="40"
+      />
+
+      <v-app-bar-title>Example application</v-app-bar-title>
+
 
     </v-app-bar>
 
     <v-main>
-      <AuthenticationWall
-        :options="options">
-        <router-view/>
-      </AuthenticationWall>
+      <v-container
+        fluid>
+        <AuthenticationWall
+          :options="options">
+          <router-view/>
+        </AuthenticationWall>
+      </v-container>
     </v-main>
+
   </v-app>
 </template>
 
