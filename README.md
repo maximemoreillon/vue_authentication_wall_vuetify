@@ -4,7 +4,7 @@ This components forces users to login before getting access to the main content 
 
 ## Usage
 
-```javascript
+```vue
 <template>
   <v-app>
     <v-main>
