@@ -4,11 +4,13 @@ This components forces users to login before getting access to the main content 
 
 ## Usage
 
-```
+```javascript
 <template>
   <v-app>
     <v-main>
-      <AuthenticationWall :options="options">
+      <AuthenticationWall
+        :options="options"
+        @user="get_user($event)">
         <router-view/>
       </AuthenticationWall>
     </v-main>
@@ -28,6 +30,11 @@ export default {
       identification_url: 'IDENTIFICATION URL',
     }
   }),
+  methods: {
+    get_user(user){
+      // dom something with the user
+    }
+  }
 
 }
 </script>

@@ -72,10 +72,12 @@ export default {
       .catch( (error) => {
         console.error(error)
         VueCookies.remove('jwt')
+        this.user = null
         if(this.axios) delete this.axios.defaults.headers.common['Authorization']
        })
        .finally( () => {
          this.loading = false
+         this.$emit('user', this.user)
        })
 
     },

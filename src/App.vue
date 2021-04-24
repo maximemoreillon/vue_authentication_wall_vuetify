@@ -23,7 +23,8 @@
       <v-container
         fluid>
         <AuthenticationWall
-          :options="options">
+          :options="options"
+          @user="get_user($event)">
           <router-view/>
         </AuthenticationWall>
       </v-container>
@@ -47,6 +48,12 @@ export default {
       identification_url: 'https://api.authentication.maximemoreillon.com/whoami',
     }
   }),
+
+  methods: {
+    get_user(user) {
+      console.log(user)
+    }
+  }
 
 };
 </script>

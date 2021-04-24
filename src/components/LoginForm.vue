@@ -81,7 +81,7 @@ export default {
       .then( ({data}) => {
         if(!data.jwt) return
         VueCookies.set('jwt', data.jwt)
-        
+
         // clear the inputs
         this.username = ''
         this.password = ''
@@ -102,17 +102,12 @@ export default {
 
     },
 
-
-
   },
-  computed: {
 
-  }
 }
 </script>
 
 <style scoped>
-
 
 
 </style>

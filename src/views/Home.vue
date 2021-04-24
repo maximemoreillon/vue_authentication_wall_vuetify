@@ -1,13 +1,13 @@
 <template>
   <div class="home">
     <h1>Home</h1>
-    <p>Welcome {{user.display_name || user.properties.username || 'Unknown user'}}</p>
+    <p v-if="user">Welcome {{user.display_name || user.properties.username || 'Unknown user'}}</p>
 
     <v-btn
       @click="logout()">
       Logout
     </v-btn>
-    
+
   </div>
 </template>
 
