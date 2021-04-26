@@ -24,14 +24,14 @@
     <v-snackbar
       color="#C00000"
       dark
-      v-model="snack" >
-      {{ snack_text }}
+      v-model="snackbar.show" >
+      {{ snackbar.text }}
 
       <template v-slot:action="{ attrs }">
         <v-btn
           icon
           v-bind="attrs"
-          @click="snack = false" >
+          @click="snackbar.show = false" >
           <v-icon>mdi-close</v-icon>
         </v-btn>
       </template>
@@ -62,8 +62,10 @@ export default {
     return {
       username: '',
       password: '',
-      snack: null,
-      snack_text: '',
+      snackbar: {
+        show: false,
+        text: ''
+      },
       processing: false,
     }
   },
@@ -74,7 +76,7 @@ export default {
       const url = this.options.login_url
       const body = { username: this.username, password: this.password }
 
-      this.snack = null
+      this.snackbar.show = null
       this.processing = true
 
       axios.post(url, body)
@@ -89,9 +91,9 @@ export default {
         this.$emit('loggedIn')
       })
       .catch( (error) => {
-        if(error.response) this.snack_text = error.response.data
-        else this.snack_text = `Error while logging in`
-        this.snack = true
+        if(error.response) this.snackbar.text = error.response.data
+        else this.snackbar.text = `Error while logging in`
+        this.snackbar.show = true
         console.error(error)
        })
       .finally(() => {

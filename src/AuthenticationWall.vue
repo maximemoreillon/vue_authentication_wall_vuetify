@@ -3,23 +3,43 @@
 
     <transition name="fade">
 
-      <div class="wall" v-if="!loading && !user">
-        <LoginForm
-          :options="options"
-          @loggedIn="get_current_user()"/>
-      </div>
+      <div class="wall" v-if="!user">
 
-      <div class="wall" v-if="loading">
-        <v-progress-circular
-        indeterminate
-        size="50"
-        color="#444444" />
+        <div class="wall_content">
+          <div class="title">
+            {{options.title}}
+          </div>
+
+          <div class="hint caption mt-3" v-if="options.hint">
+            {{options.hint}}
+          </div>
+
+          <div class="mt-3">
+            <transition name="fade" mode="out-in">
+              <LoginForm
+                v-if="!loading"
+                :options="options"
+                @loggedIn="get_current_user()"/>
+
+              <v-progress-circular
+                v-if="loading"
+                indeterminate
+                size="50"
+                color="#444444" />
+            </transition>
+          </div>
+
+
+        </div>
+
+
+
       </div>
 
     </transition>
 
 
-    <slot v-if="!!user && !loading"/>
+    <slot v-if="!!user"/>
 
 
   </div>
@@ -66,9 +86,7 @@ export default {
       const headers = { Authorization: `Bearer ${jwt}` }
 
       axios.get(url, {headers})
-      .then( ({data}) => {
-        this.user = data
-      })
+      .then( ({data}) => { this.user = data })
       .catch( (error) => {
         console.error(error)
         VueCookies.remove('jwt')
@@ -105,12 +123,16 @@ export default {
   bottom: 0;
   z-index: 1000;
   background-color: white;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 }
+
+.wall_content {
+  margin-top: 20vh;
+  max-width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
 
 .fade-enter-active, .fade-leave-active {
   transition: opacity .5s;

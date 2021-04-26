@@ -44,6 +44,8 @@ export default {
 
   data: () => ({
     options: {
+      title: 'Application wall example',
+      hint: 'Username: banana, Password: banana',
       login_url: 'https://api.authentication.maximemoreillon.com/login',
       identification_url: 'https://api.authentication.maximemoreillon.com/whoami',
     }
